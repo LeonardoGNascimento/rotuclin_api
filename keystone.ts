@@ -6,7 +6,7 @@ export default withAuth(
   config({
     db: {
       provider: "mysql",
-      url: "mysql://root:password@localhost:3306/rotuclin",
+      url: "mysql://root:a2io9wqjxcd9a5ai@69.62.86.212:3306/rotuclin",
       prismaSchemaPath: "./schema.prisma",
     },
     storage: {
