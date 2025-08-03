@@ -18,20 +18,20 @@ export default withAuth(
         accessKeyId: "minioadmin",
         secretAccessKey: "wo6623kbarrpkqnf",
         signed: { expiry: 5000 },
-        endpoint: "http://rotuclin-minio-bf124c-69-62-86-212.traefik.me:9000",
+        endpoint: "https://minio.rotuclin.com.br",
         forcePathStyle: true,
       },
     },
     server: {
       cors: {
         origin: [
-          'http://localhost:8080',
-          'https://rotuclin.com.br',
-          'https://www.rotuclin.com.br'
+          "http://localhost:8080",
+          "https://rotuclin.com.br",
+          "https://www.rotuclin.com.br",
         ],
         credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
       },
     },
     lists,
