@@ -18,7 +18,7 @@ export default withAuth(
         accessKeyId: "minioadmin",
         secretAccessKey: "wo6623kbarrpkqnf",
         signed: { expiry: 5000 },
-        endpoint: "https://api-minio.rotuclin.com.br",
+        endpoint: "http://api-minio.rotuclin.com.br",
         forcePathStyle: true,
       },
     },
