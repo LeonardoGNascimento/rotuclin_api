@@ -12,6 +12,31 @@ import { type Lists } from ".keystone/types";
 
 // --- Esquema Keystone ---
 export const lists: Lists = {
+  Cliente: list({
+    access: allowAll,
+    fields: {
+      name: text({ validation: { isRequired: true } }),
+      fotos: relationship({
+        ref: "Foto.cliente",
+        many: true,
+        label: "Foto do Cliente",
+        ui: {
+          displayMode: "cards",
+          cardFields: ["nome", "imagem", "descricao"],
+          inlineCreate: {
+            fields: ["nome", "descricao", "imagem"],
+          },
+          inlineEdit: {
+            fields: ["nome", "descricao", "imagem"],
+          },
+          inlineConnect: true,
+          linkToItem: true,
+        },
+      }),
+      createdAt: timestamp({ defaultValue: { kind: "now" } }),
+    },
+  }),
+
   User: list({
     access: allowAll,
     fields: {
@@ -31,7 +56,7 @@ export const lists: Lists = {
     fields: {
       nome: text({ validation: { isRequired: true } }),
       createdAt: timestamp({ defaultValue: { kind: "now" } }),
-      produtos: relationship({ ref: "Produto.grupo", many: true }),
+      produtos: relationship({ ref: "Produto.grupo", many: true }),      
     },
   }),
 
@@ -83,6 +108,13 @@ export const lists: Lists = {
       nome: text({ validation: { isRequired: true } }),
       descricao: text({ validation: { isRequired: true } }),
       createdAt: timestamp({ defaultValue: { kind: "now" } }),
+      cliente: relationship({
+        ref: "Cliente.fotos",
+        ui: {
+          createView: { fieldMode: "hidden" }, // Oculto ao criar (preenchido automaticamente)
+          itemView: { fieldMode: "read" }, // Apenas leitura na visualização
+        },
+      }),
       produto: relationship({
         ref: "Produto.fotos",
         ui: {

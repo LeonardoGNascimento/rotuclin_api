@@ -11,6 +11,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Cliente {
+  id        String    @id @default(cuid())
+  name      String    @default("")
+  fotos     Foto[]    @relation("Foto_cliente")
+  createdAt DateTime? @default(now())
+}
+
 model User {
   id        String    @id @default(cuid())
   name      String    @default("")
@@ -43,6 +50,8 @@ model Foto {
   nome             String    @default("")
   descricao        String    @default("")
   createdAt        DateTime? @default(now())
+  cliente          Cliente?  @relation("Foto_cliente", fields: [clienteId], references: [id])
+  clienteId        String?   @map("cliente")
   produto          Produto?  @relation("Foto_produto", fields: [produtoId], references: [id])
   produtoId        String?   @map("produto")
   imagem_id        String?
@@ -51,5 +60,6 @@ model Foto {
   imagem_height    Int?
   imagem_extension String?
 
+  @@index([clienteId])
   @@index([produtoId])
 }
