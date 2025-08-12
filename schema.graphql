@@ -183,6 +183,8 @@ type Grupo {
   produtos(where: ProdutoWhereInput! = {}, orderBy: [ProdutoOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ProdutoWhereUniqueInput): [Produto!]
   produtosCount(where: ProdutoWhereInput! = {}): Int
   destaque: Boolean
+  fotos(where: FotoWhereInput! = {}, orderBy: [FotoOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: FotoWhereUniqueInput): [Foto!]
+  fotosCount(where: FotoWhereInput! = {}): Int
 }
 
 input GrupoWhereUniqueInput {
@@ -200,6 +202,7 @@ input GrupoWhereInput {
   createdAt: DateTimeNullableFilter
   produtos: ProdutoManyRelationFilter
   destaque: BooleanFilter
+  fotos: FotoManyRelationFilter
 }
 
 input ProdutoManyRelationFilter {
@@ -229,6 +232,7 @@ input GrupoUpdateInput {
   createdAt: DateTime
   produtos: ProdutoRelateToManyForUpdateInput
   destaque: Boolean
+  fotos: FotoRelateToManyForUpdateInput
 }
 
 input ProdutoRelateToManyForUpdateInput {
@@ -250,6 +254,7 @@ input GrupoCreateInput {
   createdAt: DateTime
   produtos: ProdutoRelateToManyForCreateInput
   destaque: Boolean
+  fotos: FotoRelateToManyForCreateInput
 }
 
 input ProdutoRelateToManyForCreateInput {
@@ -328,6 +333,7 @@ type Foto {
   descricao: String
   createdAt: DateTime
   cliente: Cliente
+  grupo: Grupo
   produto: Produto
   imagem: ImageFieldOutput
 }
@@ -361,6 +367,7 @@ input FotoWhereInput {
   descricao: StringFilter
   createdAt: DateTimeNullableFilter
   cliente: ClienteWhereInput
+  grupo: GrupoWhereInput
   produto: ProdutoWhereInput
 }
 
@@ -376,6 +383,7 @@ input FotoUpdateInput {
   descricao: String
   createdAt: DateTime
   cliente: ClienteRelateToOneForUpdateInput
+  grupo: GrupoRelateToOneForUpdateInput
   produto: ProdutoRelateToOneForUpdateInput
   imagem: ImageFieldInput
 }
@@ -409,6 +417,7 @@ input FotoCreateInput {
   descricao: String
   createdAt: DateTime
   cliente: ClienteRelateToOneForCreateInput
+  grupo: GrupoRelateToOneForCreateInput
   produto: ProdutoRelateToOneForCreateInput
   imagem: ImageFieldInput
 }

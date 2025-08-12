@@ -62,6 +62,23 @@ export const lists: Lists = {
       createdAt: timestamp({ defaultValue: { kind: "now" } }),
       produtos: relationship({ ref: "Produto.grupo", many: true }),
       destaque: checkbox({ defaultValue: false }),
+      fotos: relationship({
+        ref: "Foto.grupo",
+        many: true,
+        label: "Fotos do Grupo",
+        ui: {
+          displayMode: "cards",
+          cardFields: ["nome", "imagem", "descricao"],
+          inlineCreate: {
+            fields: ["nome", "descricao", "imagem"], // ⚠️ Removido "produto"
+          },
+          inlineEdit: {
+            fields: ["nome", "descricao", "imagem"],
+          },
+          inlineConnect: true,
+          linkToItem: true,
+        },
+      }),
     },
   }),
 
@@ -115,6 +132,13 @@ export const lists: Lists = {
       createdAt: timestamp({ defaultValue: { kind: "now" } }),
       cliente: relationship({
         ref: "Cliente.fotos",
+        ui: {
+          createView: { fieldMode: "hidden" }, // Oculto ao criar (preenchido automaticamente)
+          itemView: { fieldMode: "read" }, // Apenas leitura na visualização
+        },
+      }),
+      grupo: relationship({
+        ref: "Grupo.fotos",
         ui: {
           createView: { fieldMode: "hidden" }, // Oculto ao criar (preenchido automaticamente)
           itemView: { fieldMode: "read" }, // Apenas leitura na visualização

@@ -34,6 +34,7 @@ model Grupo {
   createdAt DateTime? @default(now())
   produtos  Produto[] @relation("Produto_grupo")
   destaque  Boolean   @default(false)
+  fotos     Foto[]    @relation("Foto_grupo")
 }
 
 model Produto {
@@ -55,6 +56,8 @@ model Foto {
   createdAt        DateTime? @default(now())
   cliente          Cliente?  @relation("Foto_cliente", fields: [clienteId], references: [id])
   clienteId        String?   @map("cliente")
+  grupo            Grupo?    @relation("Foto_grupo", fields: [grupoId], references: [id])
+  grupoId          String?   @map("grupo")
   produto          Produto?  @relation("Foto_produto", fields: [produtoId], references: [id])
   produtoId        String?   @map("produto")
   imagem_id        String?
@@ -64,5 +67,6 @@ model Foto {
   imagem_extension String?
 
   @@index([clienteId])
+  @@index([grupoId])
   @@index([produtoId])
 }
