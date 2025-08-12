@@ -7,6 +7,8 @@ import {
   relationship,
   text,
   timestamp,
+  integer,
+  checkbox,
 } from "@keystone-6/core/fields";
 import { type Lists } from ".keystone/types";
 
@@ -56,7 +58,8 @@ export const lists: Lists = {
     fields: {
       nome: text({ validation: { isRequired: true } }),
       createdAt: timestamp({ defaultValue: { kind: "now" } }),
-      produtos: relationship({ ref: "Produto.grupo", many: true }),      
+      produtos: relationship({ ref: "Produto.grupo", many: true }),
+      destaque: checkbox({ defaultValue: false }),
     },
   }),
 
@@ -103,7 +106,7 @@ export const lists: Lists = {
 
   Foto: list({
     access: allowAll,
-    
+
     fields: {
       nome: text({ validation: { isRequired: true } }),
       descricao: text({ validation: { isRequired: true } }),

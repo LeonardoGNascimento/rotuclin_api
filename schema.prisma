@@ -31,6 +31,7 @@ model Grupo {
   nome      String    @default("")
   createdAt DateTime? @default(now())
   produtos  Produto[] @relation("Produto_grupo")
+  destaque  Boolean   @default(false)
 }
 
 model Produto {
