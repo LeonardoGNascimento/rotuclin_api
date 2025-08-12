@@ -57,6 +57,7 @@ export const lists: Lists = {
     ui: { labelField: "nome" },
     fields: {
       nome: text({ validation: { isRequired: true } }),
+      descricao: text(),
       createdAt: timestamp({ defaultValue: { kind: "now" } }),
       produtos: relationship({ ref: "Produto.grupo", many: true }),
       destaque: checkbox({ defaultValue: false }),
