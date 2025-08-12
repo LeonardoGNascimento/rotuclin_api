@@ -30,6 +30,7 @@ model Grupo {
   id        String    @id @default(cuid())
   nome      String    @default("")
   descricao String    @default("")
+  icon      String    @default("Package")
   createdAt DateTime? @default(now())
   produtos  Produto[] @relation("Produto_grupo")
   destaque  Boolean   @default(false)

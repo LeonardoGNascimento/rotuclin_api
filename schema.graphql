@@ -178,6 +178,7 @@ type Grupo {
   id: ID!
   nome: String
   descricao: String
+  icon: String
   createdAt: DateTime
   produtos(where: ProdutoWhereInput! = {}, orderBy: [ProdutoOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ProdutoWhereUniqueInput): [Produto!]
   produtosCount(where: ProdutoWhereInput! = {}): Int
@@ -195,6 +196,7 @@ input GrupoWhereInput {
   id: IDFilter
   nome: StringFilter
   descricao: StringFilter
+  icon: StringFilter
   createdAt: DateTimeNullableFilter
   produtos: ProdutoManyRelationFilter
   destaque: BooleanFilter
@@ -215,6 +217,7 @@ input GrupoOrderByInput {
   id: OrderDirection
   nome: OrderDirection
   descricao: OrderDirection
+  icon: OrderDirection
   createdAt: OrderDirection
   destaque: OrderDirection
 }
@@ -222,6 +225,7 @@ input GrupoOrderByInput {
 input GrupoUpdateInput {
   nome: String
   descricao: String
+  icon: String
   createdAt: DateTime
   produtos: ProdutoRelateToManyForUpdateInput
   destaque: Boolean
@@ -242,6 +246,7 @@ input GrupoUpdateArgs {
 input GrupoCreateInput {
   nome: String
   descricao: String
+  icon: String
   createdAt: DateTime
   produtos: ProdutoRelateToManyForCreateInput
   destaque: Boolean
