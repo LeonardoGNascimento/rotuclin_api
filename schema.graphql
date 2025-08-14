@@ -269,7 +269,8 @@ type Produto {
   createdAt: DateTime
   fotos(where: FotoWhereInput! = {}, orderBy: [FotoOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: FotoWhereUniqueInput): [Foto!]
   fotosCount(where: FotoWhereInput! = {}): Int
-  grupo: Grupo
+  grupos(where: GrupoWhereInput! = {}, orderBy: [GrupoOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: GrupoWhereUniqueInput): [Grupo!]
+  gruposCount(where: GrupoWhereInput! = {}): Int
 }
 
 input ProdutoWhereUniqueInput {
@@ -285,7 +286,13 @@ input ProdutoWhereInput {
   descricao: StringFilter
   createdAt: DateTimeNullableFilter
   fotos: FotoManyRelationFilter
-  grupo: GrupoWhereInput
+  grupos: GrupoManyRelationFilter
+}
+
+input GrupoManyRelationFilter {
+  every: GrupoWhereInput
+  some: GrupoWhereInput
+  none: GrupoWhereInput
 }
 
 input ProdutoOrderByInput {
@@ -300,13 +307,14 @@ input ProdutoUpdateInput {
   descricao: String
   createdAt: DateTime
   fotos: FotoRelateToManyForUpdateInput
-  grupo: GrupoRelateToOneForUpdateInput
+  grupos: GrupoRelateToManyForUpdateInput
 }
 
-input GrupoRelateToOneForUpdateInput {
-  create: GrupoCreateInput
-  connect: GrupoWhereUniqueInput
-  disconnect: Boolean
+input GrupoRelateToManyForUpdateInput {
+  disconnect: [GrupoWhereUniqueInput!]
+  set: [GrupoWhereUniqueInput!]
+  create: [GrupoCreateInput!]
+  connect: [GrupoWhereUniqueInput!]
 }
 
 input ProdutoUpdateArgs {
@@ -319,12 +327,12 @@ input ProdutoCreateInput {
   descricao: String
   createdAt: DateTime
   fotos: FotoRelateToManyForCreateInput
-  grupo: GrupoRelateToOneForCreateInput
+  grupos: GrupoRelateToManyForCreateInput
 }
 
-input GrupoRelateToOneForCreateInput {
-  create: GrupoCreateInput
-  connect: GrupoWhereUniqueInput
+input GrupoRelateToManyForCreateInput {
+  create: [GrupoCreateInput!]
+  connect: [GrupoWhereUniqueInput!]
 }
 
 type Foto {
@@ -394,6 +402,12 @@ input ClienteRelateToOneForUpdateInput {
   disconnect: Boolean
 }
 
+input GrupoRelateToOneForUpdateInput {
+  create: GrupoCreateInput
+  connect: GrupoWhereUniqueInput
+  disconnect: Boolean
+}
+
 input ProdutoRelateToOneForUpdateInput {
   create: ProdutoCreateInput
   connect: ProdutoWhereUniqueInput
@@ -425,6 +439,11 @@ input FotoCreateInput {
 input ClienteRelateToOneForCreateInput {
   create: ClienteCreateInput
   connect: ClienteWhereUniqueInput
+}
+
+input GrupoRelateToOneForCreateInput {
+  create: GrupoCreateInput
+  connect: GrupoWhereUniqueInput
 }
 
 input ProdutoRelateToOneForCreateInput {

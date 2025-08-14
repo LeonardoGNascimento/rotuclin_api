@@ -32,7 +32,7 @@ model Grupo {
   descricao String    @default("")
   icon      String    @default("Package")
   createdAt DateTime? @default(now())
-  produtos  Produto[] @relation("Produto_grupo")
+  produtos  Produto[] @relation("Grupo_produtos")
   destaque  Boolean   @default(false)
   fotos     Foto[]    @relation("Foto_grupo")
 }
@@ -43,10 +43,7 @@ model Produto {
   descricao String    @default("")
   createdAt DateTime? @default(now())
   fotos     Foto[]    @relation("Foto_produto")
-  grupo     Grupo?    @relation("Produto_grupo", fields: [grupoId], references: [id])
-  grupoId   String?   @map("grupo")
-
-  @@index([grupoId])
+  grupos    Grupo[]   @relation("Grupo_produtos")
 }
 
 model Foto {

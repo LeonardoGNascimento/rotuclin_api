@@ -53,75 +53,71 @@ export const lists: Lists = {
   }),
 
   Grupo: list({
-    access: allowAll,
-    ui: { labelField: "nome" },
-    fields: {
-      nome: text({ validation: { isRequired: true } }),
-      descricao: text(),
-      icon: text({ defaultValue: "Package" }),
-      createdAt: timestamp({ defaultValue: { kind: "now" } }),
-      produtos: relationship({ ref: "Produto.grupo", many: true }),
-      destaque: checkbox({ defaultValue: false }),
-      fotos: relationship({
-        ref: "Foto.grupo",
-        many: true,
-        label: "Fotos do Grupo",
-        ui: {
-          displayMode: "cards",
-          cardFields: ["nome", "imagem", "descricao"],
-          inlineCreate: {
-            fields: ["nome", "descricao", "imagem"], // ⚠️ Removido "produto"
-          },
-          inlineEdit: {
-            fields: ["nome", "descricao", "imagem"],
-          },
-          inlineConnect: true,
-          linkToItem: true,
-        },
-      }),
-    },
-  }),
+  access: allowAll,
+  ui: { labelField: "nome" },
+  fields: {
+    nome: text({ validation: { isRequired: true } }),
+    descricao: text(),
+    icon: text({ defaultValue: "Package" }),
+    createdAt: timestamp({ defaultValue: { kind: "now" } }),
+    produtos: relationship({ 
+      ref: "Produto.grupos", // bate com o campo alterado
+      many: true 
+    }),
+    destaque: checkbox({ defaultValue: false }),
+    fotos: relationship({
+      ref: "Foto.grupo",
+      many: true,
+      label: "Fotos do Grupo",
+      ui: {
+        displayMode: "cards",
+        cardFields: ["nome", "imagem", "descricao"],
+        inlineCreate: { fields: ["nome", "descricao", "imagem"] },
+        inlineEdit: { fields: ["nome", "descricao", "imagem"] },
+        inlineConnect: true,
+        linkToItem: true,
+      },
+    }),
+  },
+}),
 
   Produto: list({
-    access: allowAll,
-    ui: { labelField: "nome" },
-    fields: {
-      nome: text({
-        label: "Nome do Produto",
-        validation: { isRequired: true },
-      }),
-      descricao: text({
-        label: "Descrição",
-        validation: { isRequired: true },
-        ui: { displayMode: "textarea" },
-      }),
-      createdAt: timestamp({
-        label: "Data de Criação",
-        defaultValue: { kind: "now" },
-      }),
-      fotos: relationship({
-        ref: "Foto.produto",
-        many: true,
-        label: "Fotos do Produto",
-        ui: {
-          displayMode: "cards",
-          cardFields: ["nome", "imagem", "descricao"],
-          inlineCreate: {
-            fields: ["nome", "descricao", "imagem"], // ⚠️ Removido "produto"
-          },
-          inlineEdit: {
-            fields: ["nome", "descricao", "imagem"],
-          },
-          inlineConnect: true,
-          linkToItem: true,
-        },
-      }),
-      grupo: relationship({
-        ref: "Grupo.produtos",
-        label: "Grupo",
-      }),
-    },
-  }),
+  access: allowAll,
+  ui: { labelField: "nome" },
+  fields: {
+    nome: text({
+      label: "Nome do Produto",
+      validation: { isRequired: true },
+    }),
+    descricao: text({
+      label: "Descrição",
+      validation: { isRequired: true },
+      ui: { displayMode: "textarea" },
+    }),
+    createdAt: timestamp({
+      label: "Data de Criação",
+      defaultValue: { kind: "now" },
+    }),
+    fotos: relationship({
+      ref: "Foto.produto",
+      many: true,
+      label: "Fotos do Produto",
+      ui: {
+        displayMode: "cards",
+        cardFields: ["nome", "imagem", "descricao"],
+        inlineCreate: { fields: ["nome", "descricao", "imagem"] },
+        inlineEdit: { fields: ["nome", "descricao", "imagem"] },
+        inlineConnect: true,
+        linkToItem: true,
+      },
+    }),
+    grupos: relationship({ // nome no plural
+      ref: "Grupo.produtos",
+      many: true, // agora aceita vários grupos
+      label: "Grupos",
+    }),
+  },
+}),
 
   Foto: list({
     access: allowAll,
