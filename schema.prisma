@@ -18,6 +18,13 @@ model Cliente {
   createdAt DateTime? @default(now())
 }
 
+model Destaque {
+  id        String    @id @default(cuid())
+  name      String    @default("")
+  fotos     Foto[]    @relation("Foto_destaque")
+  createdAt DateTime? @default(now())
+}
+
 model User {
   id        String    @id @default(cuid())
   name      String    @default("")
@@ -57,6 +64,8 @@ model Foto {
   grupoId          String?   @map("grupo")
   produto          Produto?  @relation("Foto_produto", fields: [produtoId], references: [id])
   produtoId        String?   @map("produto")
+  destaque         Destaque? @relation("Foto_destaque", fields: [destaqueId], references: [id])
+  destaqueId       String?   @map("destaque")
   imagem_id        String?
   imagem_filesize  Int?
   imagem_width     Int?
@@ -66,4 +75,5 @@ model Foto {
   @@index([clienteId])
   @@index([grupoId])
   @@index([produtoId])
+  @@index([destaqueId])
 }

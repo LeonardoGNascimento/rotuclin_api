@@ -121,6 +121,51 @@ input FotoRelateToManyForCreateInput {
   connect: [FotoWhereUniqueInput!]
 }
 
+type Destaque {
+  id: ID!
+  name: String
+  fotos(where: FotoWhereInput! = {}, orderBy: [FotoOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: FotoWhereUniqueInput): [Foto!]
+  fotosCount(where: FotoWhereInput! = {}): Int
+  createdAt: DateTime
+}
+
+input DestaqueWhereUniqueInput {
+  id: ID
+}
+
+input DestaqueWhereInput {
+  AND: [DestaqueWhereInput!]
+  OR: [DestaqueWhereInput!]
+  NOT: [DestaqueWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  fotos: FotoManyRelationFilter
+  createdAt: DateTimeNullableFilter
+}
+
+input DestaqueOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  createdAt: OrderDirection
+}
+
+input DestaqueUpdateInput {
+  name: String
+  fotos: FotoRelateToManyForUpdateInput
+  createdAt: DateTime
+}
+
+input DestaqueUpdateArgs {
+  where: DestaqueWhereUniqueInput!
+  data: DestaqueUpdateInput!
+}
+
+input DestaqueCreateInput {
+  name: String
+  fotos: FotoRelateToManyForCreateInput
+  createdAt: DateTime
+}
+
 type User {
   id: ID!
   name: String
@@ -343,6 +388,7 @@ type Foto {
   cliente: Cliente
   grupo: Grupo
   produto: Produto
+  destaque: Destaque
   imagem: ImageFieldOutput
 }
 
@@ -377,6 +423,7 @@ input FotoWhereInput {
   cliente: ClienteWhereInput
   grupo: GrupoWhereInput
   produto: ProdutoWhereInput
+  destaque: DestaqueWhereInput
 }
 
 input FotoOrderByInput {
@@ -393,6 +440,7 @@ input FotoUpdateInput {
   cliente: ClienteRelateToOneForUpdateInput
   grupo: GrupoRelateToOneForUpdateInput
   produto: ProdutoRelateToOneForUpdateInput
+  destaque: DestaqueRelateToOneForUpdateInput
   imagem: ImageFieldInput
 }
 
@@ -411,6 +459,12 @@ input GrupoRelateToOneForUpdateInput {
 input ProdutoRelateToOneForUpdateInput {
   create: ProdutoCreateInput
   connect: ProdutoWhereUniqueInput
+  disconnect: Boolean
+}
+
+input DestaqueRelateToOneForUpdateInput {
+  create: DestaqueCreateInput
+  connect: DestaqueWhereUniqueInput
   disconnect: Boolean
 }
 
@@ -433,6 +487,7 @@ input FotoCreateInput {
   cliente: ClienteRelateToOneForCreateInput
   grupo: GrupoRelateToOneForCreateInput
   produto: ProdutoRelateToOneForCreateInput
+  destaque: DestaqueRelateToOneForCreateInput
   imagem: ImageFieldInput
 }
 
@@ -451,6 +506,11 @@ input ProdutoRelateToOneForCreateInput {
   connect: ProdutoWhereUniqueInput
 }
 
+input DestaqueRelateToOneForCreateInput {
+  create: DestaqueCreateInput
+  connect: DestaqueWhereUniqueInput
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -463,6 +523,12 @@ type Mutation {
   updateClientes(data: [ClienteUpdateArgs!]!): [Cliente]
   deleteCliente(where: ClienteWhereUniqueInput!): Cliente
   deleteClientes(where: [ClienteWhereUniqueInput!]!): [Cliente]
+  createDestaque(data: DestaqueCreateInput!): Destaque
+  createDestaques(data: [DestaqueCreateInput!]!): [Destaque]
+  updateDestaque(where: DestaqueWhereUniqueInput!, data: DestaqueUpdateInput!): Destaque
+  updateDestaques(data: [DestaqueUpdateArgs!]!): [Destaque]
+  deleteDestaque(where: DestaqueWhereUniqueInput!): Destaque
+  deleteDestaques(where: [DestaqueWhereUniqueInput!]!): [Destaque]
   createUser(data: UserCreateInput!): User
   createUsers(data: [UserCreateInput!]!): [User]
   updateUser(where: UserWhereUniqueInput!, data: UserUpdateInput!): User
@@ -513,6 +579,9 @@ type Query {
   cliente(where: ClienteWhereUniqueInput!): Cliente
   clientes(where: ClienteWhereInput! = {}, orderBy: [ClienteOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: ClienteWhereUniqueInput): [Cliente!]
   clientesCount(where: ClienteWhereInput! = {}): Int
+  destaque(where: DestaqueWhereUniqueInput!): Destaque
+  destaques(where: DestaqueWhereInput! = {}, orderBy: [DestaqueOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: DestaqueWhereUniqueInput): [Destaque!]
+  destaquesCount(where: DestaqueWhereInput! = {}): Int
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput! = {}, orderBy: [UserOrderByInput!]! = [], take: Int, skip: Int! = 0, cursor: UserWhereUniqueInput): [User!]
   usersCount(where: UserWhereInput! = {}): Int
