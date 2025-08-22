@@ -39,6 +39,31 @@ export const lists: Lists = {
     },
   }),
 
+  Destaque: list({
+    access: allowAll,
+    fields: {
+      name: text({ validation: { isRequired: true } }),
+      fotos: relationship({
+        ref: "Foto.destaque",
+        many: true,
+        label: "Foto destaque",
+        ui: {
+          displayMode: "cards",
+          cardFields: ["nome", "imagem", "descricao"],
+          inlineCreate: {
+            fields: ["nome", "descricao", "imagem"],
+          },
+          inlineEdit: {
+            fields: ["nome", "descricao", "imagem"],
+          },
+          inlineConnect: true,
+          linkToItem: true,
+        },
+      }),
+      createdAt: timestamp({ defaultValue: { kind: "now" } }),
+    },
+  }),
+
   User: list({
     access: allowAll,
     fields: {
@@ -142,6 +167,13 @@ export const lists: Lists = {
       }),
       produto: relationship({
         ref: "Produto.fotos",
+        ui: {
+          createView: { fieldMode: "hidden" }, // Oculto ao criar (preenchido automaticamente)
+          itemView: { fieldMode: "read" }, // Apenas leitura na visualização
+        },
+      }),
+      destaque: relationship({
+        ref: "Destaque.fotos",
         ui: {
           createView: { fieldMode: "hidden" }, // Oculto ao criar (preenchido automaticamente)
           itemView: { fieldMode: "read" }, // Apenas leitura na visualização
